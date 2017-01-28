@@ -525,7 +525,9 @@ class InstaBot:
             # ------------------- Comment -------------------
             self.new_auto_mod_comments()
             # Bot iteration in 1 sec
-            time.sleep(3)
+            wait_seconds = randint(2,5)
+            self.write_log('[BOTI] Waiting %i seconds' % wait_seconds)
+            time.sleep(wait_seconds)
             # print("Tic!")
 
     def new_auto_mod_like(self):
