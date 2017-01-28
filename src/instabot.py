@@ -13,7 +13,7 @@ import signal
 import itertools
 import sys
 import emoji
-
+from random import randint
 from unfollow_protocol import unfollow_protocol
 
 class InstaBot:
