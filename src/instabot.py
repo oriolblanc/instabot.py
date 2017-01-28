@@ -12,6 +12,7 @@ import atexit
 import signal
 import itertools
 import sys
+import emoji
 
 from unfollow_protocol import unfollow_protocol
 
@@ -588,25 +589,8 @@ class InstaBot:
         return time * 0.9 + time * 0.2 * random.random()
 
     def generate_comment(self):
-        c_list = list(itertools.product(
-            ["this", "the", "your"],
-            ["photo", "picture", "pic", "shot", "snapshot"],
-            ["is", "looks", "feels", "is really"],
-            ["great", "super", "good", "very good",
-             "good", "wow", "WOW", "cool",
-             "GREAT", "magnificent", "magical", "very cool",
-             "stylish", "so stylish", "beautiful",
-             "so beautiful", "so stylish", "so professional",
-             "lovely", "so lovely", "very lovely",
-             "glorious", "so glorious", "very glorious",
-             "adorable", "excellent", "amazing"],
-            [".", "..", "...", "!", "!!", "!!!"]))
-
-        repl = [("  ", " "), (" .", "."), (" !", "!")]
-        res = " ".join(random.choice(c_list))
-        for s, r in repl:
-            res = res.replace(s, r)
-        return res.capitalize()
+        emojis = [':top:', ':thumbsup:', ':clap:', ':ok_hand:', ':joy:', ':smiley_cat:', ':the_horns:']
+        return emoji.emojize(random.choice(emojis), use_aliases=True)
 
     def check_exisiting_comment(self, media_code):
         url_check = self.url_media_detail % (media_code)
