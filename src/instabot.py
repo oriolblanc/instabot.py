@@ -525,7 +525,7 @@ class InstaBot:
             # ------------------- Comment -------------------
             self.new_auto_mod_comments()
             # Bot iteration in 1 sec
-            wait_seconds = randint(2,5)
+            wait_seconds = randint(2,4)
             self.write_log('[BOTI] Waiting %i seconds' % wait_seconds)
             time.sleep(wait_seconds)
             # print("Tic!")
@@ -591,7 +591,7 @@ class InstaBot:
         return time * 0.9 + time * 0.2 * random.random()
 
     def generate_comment(self):
-        emojis = [':top:', ':thumbsup:', ':clap:', ':ok_hand:', ':joy:', ':smiley_cat:', ':the_horns:', ':wink:', ':smile:', ':simple_smile:']
+        emojis = [':top:', ':thumbsup:', ':clap:', ':ok_hand:', ':joy:', ':smiley_cat:', ':sign_of_the_horns:', ':wink:', ':smile:']
         return emoji.emojize(random.choice(emojis), use_aliases=True)
 
     def check_exisiting_comment(self, media_code):
