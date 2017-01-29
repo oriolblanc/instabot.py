@@ -525,8 +525,8 @@ class InstaBot:
             # ------------------- Comment -------------------
             self.new_auto_mod_comments()
             # Bot iteration in 1 sec
-            wait_seconds = randint(2,4)
-            self.write_log('[BOTI] Waiting %i seconds' % wait_seconds)
+            wait_seconds = randint(1,3)
+            self.write_log('Waiting %i seconds' % wait_seconds)
             time.sleep(wait_seconds)
             # print("Tic!")
 
