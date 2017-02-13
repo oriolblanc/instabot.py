@@ -120,13 +120,15 @@ class InstaBot:
                  proxy="",
                  user_blacklist={},
                  tag_blacklist=[],
-                 unwanted_username_list=[]):
+                 nwanted_username_list=[]
+                 unfollow_whitelist=[]):
 
         self.bot_start = datetime.datetime.now()
         self.unfollow_break_min = unfollow_break_min
         self.unfollow_break_max = unfollow_break_max
         self.user_blacklist = user_blacklist
         self.tag_blacklist = tag_blacklist
+        self.unfollow_whitelist = unfollow_whitelist
 
         self.time_in_day = 24 * 60 * 60
         # Like
@@ -592,8 +594,7 @@ class InstaBot:
 
     def generate_comment(self):
         emojis = [':top:', ':thumbsup:', ':clap:', ':ok_hand:', ':joy:', ':smiley_cat:', ':sign_of_the_horns:', ':wink:', ':smile:', ':sunglasses:']
-        return emoji.emojize(random.choice(emojis), use_aliases=True)
-
+g
     def check_exisiting_comment(self, media_code):
         url_check = self.url_media_detail % (media_code)
         check_comment = self.s.get(url_check)
@@ -616,6 +617,7 @@ class InstaBot:
         chooser = 1
         current_user = 'abcd'
         current_id = '12345'
+        checking = True
         self.media_on_feed = []
         if len(self.media_on_feed) < 1:
             self.get_media_id_recent_feed()
@@ -623,6 +625,19 @@ class InstaBot:
             chooser = random.randint(0,len(self.media_on_feed)-1)
             current_id=self.media_on_feed[chooser]["owner"]["id"]
             current_user=self.media_on_feed[chooser]["owner"]["username"]
+
+            while checking:
+                for wluser in self.unfollow_whitelist:
+                    if wluser == current_user:
+                        chooser = random.randint(0,len(self.media_on_feed)-1)
+                        current_id=self.media_on_feed[chooser]["owner"]["id"]
+                        current_user=self.media_on_feed[chooser]["owner"]["username"]
+                        log_string = ("found whitelist user, starting search again")
+                        self.write_log(log_string)
+                        break;
+                else:
+                    checking = False
+
         if (self.login_status):
             now_time = datetime.datetime.now()
             log_string = "%s : Get user info \n%s"%(self.user_login,now_time.strftime("%d.%m.%Y %H:%M"))
