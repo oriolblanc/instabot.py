@@ -120,7 +120,7 @@ class InstaBot:
                  proxy="",
                  user_blacklist={},
                  tag_blacklist=[],
-                 nwanted_username_list=[]
+                 unwanted_username_list=[],
                  unfollow_whitelist=[]):
 
         self.bot_start = datetime.datetime.now()
@@ -594,7 +594,7 @@ class InstaBot:
 
     def generate_comment(self):
         emojis = [':top:', ':thumbsup:', ':clap:', ':ok_hand:', ':joy:', ':smiley_cat:', ':sign_of_the_horns:', ':wink:', ':smile:', ':sunglasses:']
-g
+
     def check_exisiting_comment(self, media_code):
         url_check = self.url_media_detail % (media_code)
         check_comment = self.s.get(url_check)
