@@ -594,6 +594,7 @@ class InstaBot:
 
     def generate_comment(self):
         emojis = [':top:', ':thumbsup:', ':clap:', ':ok_hand:', ':joy:', ':smiley_cat:', ':sign_of_the_horns:', ':wink:', ':smile:', ':sunglasses:']
+        return emoji.emojize(random.choice(emojis), use_aliases=True)
 
     def check_exisiting_comment(self, media_code):
         url_check = self.url_media_detail % (media_code)
