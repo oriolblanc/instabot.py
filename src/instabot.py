@@ -452,6 +452,7 @@ class InstaBot:
                     self.follow_counter += 1
                     log_string = "Followed: %s #%i." % (user_id, self.follow_counter)
                     self.write_log(log_string)
+                    self.log_follow(user_id)
                 return follow
             except:
                 self.write_log("Except on follow!")
@@ -794,3 +795,27 @@ class InstaBot:
                 self.logger.info(log_text)
             except UnicodeEncodeError:
                 print("Your text has unicode problem!")
+
+    def log_follow(self, user_id):
+        """ Write log by print() or logger """
+
+        log_follows_file = '%s%s.json' % (self.log_file_path,
+                                            self.user_login)
+
+        report = []
+
+        try:
+            with open(log_follows_file, 'r') as f:report = json.load(f)
+        except:
+            report = []
+
+        new_follow = {
+            "user_id": user_id,
+            "timestamp": int(time.mktime(datetime.datetime.now().timetuple()))
+        }
+
+        report.append(new_follow)
+
+        with open(log_follows_file, 'w') as f:json.dump(report, f)
+
+        return True
