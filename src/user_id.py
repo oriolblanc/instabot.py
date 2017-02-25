@@ -27,14 +27,14 @@ def get_user_id_if_following (self, username):
                 all_data = json.loads(json_str)
                                         
                 user_info = list(all_data['entry_data']['ProfilePage'])
-              	
-                log_string="Checking @%s 's id .." % (username)
-                self.write_log(log_string)
 
                 user_id = str(user_info[0]['user']['id'])
                 followed_by_viewer = user_info[0]['user']['followed_by_viewer']
                 requested_by_viewer = user_info[0]['user']['requested_by_viewer']
                 following = True if (followed_by_viewer or requested_by_viewer) else False
+              	
+                log_string="The @%s 's id is %s" % (username, user_id)
+                self.write_log(log_string)
 
                 if following:
                     log_string="You are following the user @%s with id %s" % (username, user_id)
