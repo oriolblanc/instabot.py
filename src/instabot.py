@@ -51,7 +51,7 @@ class InstaBot:
 
     user_agent = ("Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 "
                   "(KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36")
-    accept_language = 'ru-RU,ru;q=0.8,en-US;q=0.6,en;q=0.4'
+    accept_language = 'es-ES,es;q=0.8,en-US;q=0.6,en;q=0.4'
 
     # If instagram ban you - query return 400 error.
     error_400 = 0
