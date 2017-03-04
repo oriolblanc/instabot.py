@@ -92,6 +92,7 @@ class InstaBot:
 
     # Log setting.
     log_file_path = ''
+    log_follow_file_path = ''
     log_file = 0
 
     # Other.
@@ -121,6 +122,7 @@ class InstaBot:
                  user_blacklist={},
                  tag_blacklist=[],
                  unwanted_username_list=[],
+                 log_follow_file_path='',
                  unfollow_whitelist=[]):
 
         self.bot_start = datetime.datetime.now()
@@ -129,6 +131,7 @@ class InstaBot:
         self.user_blacklist = user_blacklist
         self.tag_blacklist = tag_blacklist
         self.unfollow_whitelist = unfollow_whitelist
+        self.log_follow_file_path = log_follow_file_path
 
         self.time_in_day = 24 * 60 * 60
         # Like
@@ -800,9 +803,10 @@ class InstaBot:
     def log_follow(self, user_id):
         """ Write log by print() or logger """
 
-        log_follows_file = '%s%s.json' % (self.log_file_path,
-                                            self.user_login)
 
+        log_follows_file = '%s%s.json' % (self.log_follow_file_path,
+                                            self.user_login)
+        print("log_follows_file " + log_follows_file)
         report = []
 
         try:
