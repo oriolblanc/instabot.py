@@ -816,7 +816,8 @@ class InstaBot:
 
         new_follow = {
             "user_id": user_id,
-            "timestamp": int(time.mktime(datetime.datetime.now().timetuple()))
+            "timestamp": int(time.mktime(datetime.datetime.now().timetuple())),
+            "retries": 0
         }
 
         report.append(new_follow)
