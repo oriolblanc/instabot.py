@@ -73,6 +73,7 @@ class InstaBot:
     bot_follow_list = []
     user_info_list = []
     user_list = []
+    comment_list = []
     ex_user_list = []
     unwanted_username_list = []
     is_checked = False
@@ -123,7 +124,8 @@ class InstaBot:
                  tag_blacklist=[],
                  unwanted_username_list=[],
                  log_follow_file_path='',
-                 unfollow_whitelist=[]):
+                 unfollow_whitelist=[],
+                 comment_list=[]):
 
         self.bot_start = datetime.datetime.now()
         self.unfollow_break_min = unfollow_break_min
@@ -193,6 +195,9 @@ class InstaBot:
         signal.signal(signal.SIGTERM, self.cleanup)
         atexit.register(self.cleanup)
 
+        default_emojis = [':top:', ':thumbsup:', ':clap:', ':ok_hand:', ':joy:', ':smiley_cat:', ':sign_of_the_horns:', ':wink:', ':smile:', ':sunglasses:']
+        self.comment_list = comment_list if (len(comment_list) > 0) else default_emojis
+
     def populate_user_blacklist(self):
         for user in self.user_blacklist:
 
@@ -234,6 +239,7 @@ class InstaBot:
                             allow_redirects=True)
         self.s.headers.update({'X-CSRFToken': login.cookies['csrftoken']})
         self.csrftoken = login.cookies['csrftoken']
+        print("asd " + str(login.text))
         time.sleep(5 * random.random())
 
         if login.status_code == 200:
@@ -597,8 +603,7 @@ class InstaBot:
         return time * 0.9 + time * 0.2 * random.random()
 
     def generate_comment(self):
-        emojis = [':top:', ':thumbsup:', ':clap:', ':ok_hand:', ':joy:', ':smiley_cat:', ':sign_of_the_horns:', ':wink:', ':smile:', ':sunglasses:']
-        return emoji.emojize(random.choice(emojis), use_aliases=True)
+        return emoji.emojize(random.choice(self.comment_list), use_aliases=True)
 
     def check_exisiting_comment(self, media_code):
         url_check = self.url_media_detail % (media_code)
@@ -610,8 +615,8 @@ class InstaBot:
                     # Del media to don't loop on it
                     del self.media_by_tag[0]
                     return True
-            comment_list = list(all_data['media']['comments']['nodes'])
-            for d in comment_list:
+            current_comment_list = list(all_data['media']['comments']['nodes'])
+            for d in current_comment_list:
                 if d['user']['id'] == self.user_id:
                     self.write_log("Keep calm - Media already commented ;)")
                     # Del media to don't loop on it
