@@ -195,7 +195,7 @@ class InstaBot:
         signal.signal(signal.SIGTERM, self.cleanup)
         atexit.register(self.cleanup)
 
-        default_emojis = [':top:', ':thumbsup:', ':clap:', ':ok_hand:', ':joy:', ':smiley_cat:', ':sign_of_the_horns:', ':wink:', ':smile:', ':sunglasses:']
+        default_emojis = [':top:', ':thumbsup:', ':clap:', ':ok_hand:', ':smiley_cat:', ':sign_of_the_horns:', ':wink:', ':smile:', ':sunglasses:']
         self.comment_list = comment_list if (len(comment_list) > 0) else default_emojis
 
     def populate_user_blacklist(self):
