@@ -610,14 +610,14 @@ class InstaBot:
         check_comment = self.s.get(url_check)
         if check_comment.status_code == 200:
             all_data = json.loads(check_comment.text)
-            if all_data['media']['owner']['id'] == self.user_id:
-                    self.write_log("Keep calm - It's your own media ;)")
-                    # Del media to don't loop on it
-                    del self.media_by_tag[0]
-                    return True
-            current_comment_list = list(all_data['media']['comments']['nodes'])
-            for d in current_comment_list:
-                if d['user']['id'] == self.user_id:
+            if all_data['graphql']['shortcode_media']['owner']['id'] == self.user_id:
+                self.write_log("Keep calm - It's your own media ;)")
+                # Del media to don't loop on it
+                del self.media_by_tag[0]
+                return True
+            comment_list = list(all_data['graphql']['shortcode_media']['edge_media_to_comment']['edges'])
+            for d in comment_list:
+                if d['node']['owner']['id'] == self.user_id:
                     self.write_log("Keep calm - Media already commented ;)")
                     # Del media to don't loop on it
                     del self.media_by_tag[0]
